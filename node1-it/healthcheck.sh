@@ -18,10 +18,10 @@ nr_of_attempts=0
 function system_under_test_ready() {
   (( nr_of_attempts+=1 ))
 
-  if [ ${nr_of_attempts} -eq 6 ]; then
-    echo "Waited for system under test to get healthy long enough, giving up"
+  if [ ${nr_of_attempts} -eq 10 ]; then
+    echo "Waited for system under test to get healthy for 20 secs, giving up"
     exit 1
-  fi  
+  fi
 
   echo "Running curl -s ${HEALTHCHECK_ENDPOINT} | jq --compact-output \"${JQ_ARGUMENT}\""
   HEALTH=$(curl -s ${HEALTHCHECK_ENDPOINT} | jq --compact-output "${JQ_ARGUMENT}")
@@ -31,7 +31,7 @@ function system_under_test_ready() {
   else
     echo "Recieved ${HEALTH}, system under test is NOT ready for test"
     return 1
-  fi  
+  fi
 }
 
 until system_under_test_ready; do

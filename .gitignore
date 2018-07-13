@@ -3,3 +3,6 @@ node_modules/
 .npm
 .vscode/
 /package-lock.json
+/microservice-ex.iml
+/node1-it/package-lock.json
+/.idea/
