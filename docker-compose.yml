@@ -1,0 +1,27 @@
+version: '3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
+    ports:
+      - 9200:9200
+  node1:
+    build: node1-elastic/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    command: ["./wait-for-it.sh", "elasticsearch:9200", "--", "npm", "start"]
+  node1-it:
+    build: node1-it/
+    depends_on:
+      - node1
+      - elasticsearch
+    links:
+      - node1
+      - elasticsearch
+    environment:
+    - DEBUG=super-curl
+    tty: true  
+    # command: ["./wait-for-it.sh", "node1:8080", "--", "npm", "test"]      
