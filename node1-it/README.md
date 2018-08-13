@@ -1,4 +1,4 @@
-# Microservice lab projet  
+# Microservice lab project  
 This is a lab project for testing how to run and test microservices. Right now it contains only one service:  
 - node1: A simple nodejs REST api that fetches data from ElasticSearch  
 
