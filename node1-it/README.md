@@ -19,7 +19,7 @@ Then run:
 docker-compose up node1
 ```
 
-#### Build and run node1 ingetration test in container (join docker network)
+#### Build and run node1 integration test in container (join docker network)
 From folder microservice-ex/node1-it run:
 ```sh
 docker build . -t patrikbergman/node1-it
