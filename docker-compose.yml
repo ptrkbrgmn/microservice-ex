@@ -1,9 +1,13 @@
 version: '3'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.4.0
     ports:
       - 9200:9200
+  # redis:
+  #   image: redis:4.0.11-alpine
+  #   ports:
+  #     - "6379:6379"
   node1:
     build: node1-elastic/
     ports:
@@ -23,5 +27,12 @@ services:
       - elasticsearch
     environment:
     - DEBUG=super-curl
-    tty: true  
-    # command: ["./wait-for-it.sh", "node1:8080", "--", "npm", "test"]      
+    tty: true
+    # command: ["./wait-for-it.sh", "node1:8080", "--", "npm", "test"]
+  start_dependencies:
+    build: start_dependencies/
+    depends_on:
+      - elasticsearch
+    command: ['http://elasticsearch:9200/_cluster/health/ [.status] ["green"]']
+      # many service dependencies example:
+      #command: ['http://es-content:9200/_cluster/health/ [.status] ["green"]', 'http://some-other-service [.status] ["ok"]']

@@ -20,13 +20,8 @@ nr_of_attempts=0
 function system_under_test_ready() {
   (( nr_of_attempts+=1 ))
 
-<<<<<<< Updated upstream
-  if [ ${nr_of_attempts} -eq 10 ]; then
-    echo "Waited for system under test to get healthy for 20 secs, giving up"
-=======
   if [ ${nr_of_attempts} -eq ${MAX_ATTEMPTS} ]; then
     echo "Waited for system under test to get healthy for $((MAX_ATTEMPTS * SLEEP_TIME)) secs, giving up"
->>>>>>> Stashed changes
     exit 1
   fi
 
@@ -50,4 +45,4 @@ done
 echo "${HEALTHCHECK_ENDPOINT} is ready/healthy!"
 echo ""
 
-exec ${CMD}
+# exec ${CMD}
